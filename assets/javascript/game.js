@@ -1,55 +1,21 @@
-var movies = []
-// ["The Matrix", "The Notebook", "Mr. Nobody", "The Lion King"]
-function displayMovieInfo() {
-    var movie = $(this).attr("data-name")
-    var queryURL = "https://www.omdbapi.com/?t=" + movie + "&apikey=trilogy"
-    // Creates AJAX call for the specific movie button being clicked
-    $.ajax({
-        url: queryURL,
-        method: "GET"
-    }).then(function (response) {
-        var movieWrapper = $("<div>");
-        var movieTitle = $("<h2>" + response.Title + "</h2>")
-        var moviePoster = $("<img>").attr("src", response.Poster);
-        var movieRating = $("<h3>" + response.Rated + "</h3>")
-        var movieCast = $("<ul>")
-        var castMembers = response.Actors.split(", ");
-        castMembers.forEach(function (member) {
-            movieCast.append("<li>" + member + "</li>");
-
-        });
-
-        movieWrapper.append(movieTitle, movieRating, moviePoster, movieCast);
-        $("#data-info").prepend(movieWrapper);
-    });
-}
+var gifs = ["tacos", "pizza", "burritos", "enchiladas"]
 
 function renderButtons() {
-
-    // Deletes the movies prior to adding new movies
-    // (this is necessary otherwise you will have repeat buttons)
     $("#buttons-view").empty();
-    // Loops through the array of movies
     for (var i = 0; i < movies.length; i++) {
 
-        // Then dynamicaly generates buttons for each movie in the array
-        // This code $("<button>") is all jQuery needs to create the beginning and end tag. (<button></button>)
         var a = $("<button>");
-        // Adds a class of movie to our button
-        a.addClass("movie");
-        // Added a data-attribute
-        a.attr("data-name", movies[i]);
-        // Provided the initial button text
-        a.text(movies[i]);
-        // Added the button to the buttons-view div
+        a.addClass("gif");
+        a.attr("data-name", gifs[i]);
+        a.text(gifs[i]);
         $("#buttons-view").append(a);
     }
 }
 
-$("#add-movie").on("click", function (event) {
+$("#add-button").on("click", function (event) {
     event.preventDefault();
     // This line of code will grab the input from the textbox
-    var movie = $("#movie-input").val().trim();
+    var movie = $("#name-input").val().trim();
 
     // The movie from the textbox is then added to our array
     movies.push(movie);
@@ -64,9 +30,9 @@ $(document).on("click", ".movie", displayMovieInfo);
 // Calling the renderButtons function to display the intial buttons
 renderButtons();
 
-var person = $(this).attr("data-person");
+var name = $(this).attr("data-name");
 var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
-    person + "&api_key=BkaUZZWcFij6J7AoQj3WtPb1R2p9O6V9&limit=10";
+    name + "&api_key=BkaUZZWcFij6J7AoQj3WtPb1R2p9O6V9&limit=10";
 
 $("button").on("click", function () {
     $.ajax({
@@ -94,32 +60,58 @@ $("button").on("click", function () {
         });
 });
 
-$("#cat-button").on("click", function () {
 
-    // giphy reference url
-    var queryURL =
-      "https://api.giphy.com/v1/gifs/random?api_key=BkaUZZWcFij6J7AoQj3WtPb1R2p9O6V9&tag=cats&limit=10";
+// function displayGifInfo() {
+//     var movie = $(this).attr("data-name")
+//     var queryURL = "https://www.omdbapi.com/?t=" + movie + "&apikey=trilogy"
+//     // Creates AJAX call for the specific movie button being clicked
+//     $.ajax({
+//         url: queryURL,
+//         method: "GET"
+//     }).then(function (response) {
+//         var gifWrapper = $("<div>");
+//         var gifTitle = $("<h2>" + response.Title + "</h2>")
+//         var gifPoster = $("<img>").attr("src", response.Poster);
+//         var gifRating = $("<h3>" + response.Rated + "</h3>")
+//         var gifCast = $("<ul>")
+//         var castMembers = response.Actors.split(", ");
+//         castMembers.forEach(function (member) {
+//             movieCast.append("<li>" + member + "</li>");
 
-    // call for the url
-    $.ajax({
-        url: queryURL,
-        method: "GET"
-      })
+//         });
 
-      // shows the object of the gifs
-      .then(function (response) {
+//         movieWrapper.append(gifTitle, gifRating, gifPoster, gifCast);
+//         $("#gifs-appear-here").prepend(gifWrapper);
+//     });
+// }
 
-        //  grabs the url from the response/data/imagae_original_url in the image url
-        var imageUrl = response.data.image_original_url;
 
-        //  catImage creates a new image tag
-        var catImage = $("<img>");
+// $("#cat-button").on("click", function () {
 
-        //  grabs the url of the gif and also the image
-        catImage.attr("src", imageUrl);
-        catImage.attr("alt", "cat image");
+//     // giphy reference url
+//     var queryURL =
+//       "https://api.giphy.com/v1/gifs/random?api_key=BkaUZZWcFij6J7AoQj3WtPb1R2p9O6V9&tag=cats&limit=10";
 
-        // prepends the image/gif in order of button clicked
-        $("#images").prepend(catImage);
-      });
-  });
+//     // call for the url
+//     $.ajax({
+//         url: queryURL,
+//         method: "GET"
+//       })
+
+//       // shows the object of the gifs
+//       .then(function (response) {
+
+//         //  grabs the url from the response/data/imagae_original_url in the image url
+//         var imageUrl = response.data.image_original_url;
+
+//         //  catImage creates a new image tag
+//         var catImage = $("<img>");
+
+//         //  grabs the url of the gif and also the image
+//         catImage.attr("src", imageUrl);
+//         catImage.attr("alt", "cat image");
+
+//         // prepends the image/gif in order of button clicked
+//         $("#images").prepend(catImage);
+//       });
+//   });
