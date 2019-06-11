@@ -16,27 +16,12 @@ function renderButtons() {
     }
 }
 
-$("#add-button").on("click", function (event) {
-    event.preventDefault();
-    // This line of code will grab the input from the textbox
-    var gifName = $("#name-input").val().trim();
-
-    // The movie from the textbox is then added to our array
-    movies.push(gifName);
-
-    // Calling renderButtons which handles the processing of our movie array
-    renderButtons();
-});
-
-// Calling the renderButtons function to display the intial buttons
-renderButtons();
-
-var name = $(this).attr("data-name");
-console.log(this)
-var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
-    name + "&api_key=BkaUZZWcFij6J7AoQj3WtPb1R2p9O6V9&limit=10";
-
 $("button").on("click", function () {
+    var name = $(this).attr("data-name");
+    console.log(this)
+    var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
+        name + "&api_key=BkaUZZWcFij6J7AoQj3WtPb1R2p9O6V9&limit=10";
+
     $.ajax({
             url: queryURL,
             method: "GET"
@@ -61,6 +46,24 @@ $("button").on("click", function () {
             }
         });
 });
+
+
+$("#add-button").on("click", function (event) {
+    event.preventDefault();
+    // This line of code will grab the input from the textbox
+    var gifName = $("#name-input").val().trim();
+
+    // The movie from the textbox is then added to our array
+    gifs.push(gifName);
+
+    // Calling renderButtons which handles the processing of our movie array
+    renderButtons();
+});
+
+// Calling the renderButtons function to display the intial buttons
+renderButtons();
+
+
 
 
 // function displayGifInfo() {
