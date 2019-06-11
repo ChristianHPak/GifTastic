@@ -1,78 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-  <meta charset="utf-8">
-  <title>The Magical Cat Button</title>
+  
 </head>
 
 <body>
-  <button id="cat-button">magical cat button</button>
-  <div id="images">
-  </div>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script type="text/javascript">
-    // calls for a button click event
-    $("#cat-button").on("click", function () {
 
-      // giphy reference url
-      var queryURL =
-        "https://api.giphy.com/v1/gifs/random?api_key=BkaUZZWcFij6J7AoQj3WtPb1R2p9O6V9&tag=cats&limit=10";
-
-      // call for the url
-      $.ajax({
-          url: queryURL,
-          method: "GET"
-        })
-
-        // shows the object of the gifs
-        .then(function (response) {
-
-          //  grabs the url from the response/data/imagae_original_url in the image url
-          var imageUrl = response.data.image_original_url;
-
-          //  catImage creates a new image tag
-          var catImage = $("<img>");
-
-          //  grabs the url of the gif and also the image
-          catImage.attr("src", imageUrl);
-          catImage.attr("alt", "cat image");
-
-          // prepends the image/gif in order of button clicked
-          $("#images").prepend(catImage);
-        });
-    });
-  </script>
 </body>
 
 </html>
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="utf-8">
-  <title>Favorite Movies</title>
-</head>
-
-<body>
-
-  <div class="container">
-    <h1>Movie Search</h1>
-
-    <form id="movie-form">
-      <label for="movie-input">Add a Movie, Yo!</label>
-      <input type="text" id="movie-input"><br>
-
-      <!-- Button triggers new movie to be added -->
-      <input id="add-movie" type="submit" value="Add a Movie, Yo!">
-    </form>
-
-    <div id="data-info"></div>
-    <div id="movies-view"></div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  </div>
-</body>
-
-<!-- </html>/ -->

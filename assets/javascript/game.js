@@ -1,6 +1,6 @@
 var movies = []
 // ["The Matrix", "The Notebook", "Mr. Nobody", "The Lion King"]
-function displayMovieInf {
+function displayMovieInfo() {
     var movie = $(this).attr("data-name")
     var queryURL = "https://www.omdbapi.com/?t=" + movie + "&apikey=trilogy"
     // Creates AJAX call for the specific movie button being clicked
