@@ -28,16 +28,33 @@ function displayGifs() {
 
                 gifDiv.prepend(p);
                 gifDiv.prepend(gifImage);
-                console.log(results[i].images.fixed_height.url);
-                
-                $("#gifs-appear-here").prepend(gifDiv);
+
+                $("#gifs-appear-here").append(gifDiv);
             }
         });
 
     $("#gifs-appear-here").empty();
 };
 
+$(".giphy").on("click", function (event) {
+    event.preventDefault();
+
+    var state = $(this).attr("data-state");
+    console.log(state);
+    if (state === "still") {
+
+        $(this).attr("src", $(this).data("animate"));
+
+        $(this).attr("data-state", "animate");
+    } else {
+        $(this).attr("src", $(this).data("still"));
+
+        $(this).attr("data-state", "still");
+    }
+});
+
 function renderButtons() {
+
     $("#buttons-view").empty();
 
     for (var i = 0; i < gifs.length; i++) {
@@ -67,7 +84,7 @@ $("#add-button").on("click", function (event) {
 
     // Calling renderButtons which handles the processing of our movie array
     renderButtons();
-    
+
     $("input, textarea").val("");
 });
 
@@ -75,19 +92,3 @@ $("#add-button").on("click", function (event) {
 renderButtons();
 
 $("#buttons-view").on("click", ".gif", displayGifs);
-
-$(".giphy").on("click", function () {
-
-    var state = $(this).attr("data-state");
-
-    if (state === "still") {
-
-        $(this).attr("src", $(this).data("animate"));
-
-        $(this).attr("data-state", "animate");
-    } else {
-        $(this).attr("src", $(this).data("still"));
-
-        $(this).attr("data-state", "still");
-    }
-});
