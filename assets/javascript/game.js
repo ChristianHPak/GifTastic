@@ -5,9 +5,13 @@ function renderButtons() {
     for (var i = 0; i < movies.length; i++) {
 
         var a = $("<button>");
+
         a.addClass("gif");
+
         a.attr("data-name", gifs[i]);
+        
         a.text(gifs[i]);
+
         $("#buttons-view").append(a);
     }
 }
