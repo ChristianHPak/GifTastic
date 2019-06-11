@@ -1,7 +1,40 @@
 var gifs = ["tacos", "pizza", "burritos", "enchiladas"]
 
+function displayGifs() {
+    var name = $(this).attr("data-name");
+
+    var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
+        name + "&api_key=BkaUZZWcFij6J7AoQj3WtPb1R2p9O6V9&limit=10";
+
+    $.ajax({
+            url: queryURL,
+            method: "GET"
+        })
+        .then(function (response) {
+            console.log(response)
+            var results = response.data;
+
+            for (var i = 0; i < results.length; i++) {
+                var gifDiv = $("<div>");
+
+                var rating = results[i].rating;
+
+                var p = $("<p>").text("Rating: " + rating);
+
+                var gifImage = $("<img>");
+                gifImage.attr("src", results[i].images.fixed_height.url);
+
+                gifDiv.prepend(p);
+                gifDiv.prepend(gifImage);
+
+                $("#gifs-appear-here").append(gifDiv);
+            }
+        });
+};
+
 function renderButtons() {
     $("#buttons-view").empty();
+
     for (var i = 0; i < gifs.length; i++) {
 
         var a = $("<button>");
@@ -15,38 +48,6 @@ function renderButtons() {
         $("#buttons-view").append(a);
     }
 }
-
-$("button").on("click", function () {
-    var name = $(this).attr("data-name");
-    console.log(this)
-    var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
-        name + "&api_key=BkaUZZWcFij6J7AoQj3WtPb1R2p9O6V9&limit=10";
-
-    $.ajax({
-            url: queryURL,
-            method: "GET"
-        })
-        .then(function (response) {
-            var results = response.data;
-
-            for (var i = 0; i < results.length; i++) {
-                var gifDiv = $("<div>");
-
-                var rating = results[i].rating;
-
-                var p = $("<p>").text("Rating: " + rating);
-
-                var personImage = $("<img>");
-                personImage.attr("src", results[i].images.fixed_height.url);
-
-                gifDiv.prepend(p);
-                gifDiv.prepend(personImage);
-
-                $("#gifs-appear-here").prepend(gifDiv);
-            }
-        });
-});
-
 
 $("#add-button").on("click", function (event) {
     event.preventDefault();
@@ -62,6 +63,8 @@ $("#add-button").on("click", function (event) {
 
 // Calling the renderButtons function to display the intial buttons
 renderButtons();
+
+$(document).on("click", ".gif", displayGifs);
 
 
 
