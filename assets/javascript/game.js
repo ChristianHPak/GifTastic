@@ -2,14 +2,14 @@ var gifs = ["tacos", "pizza", "burritos", "enchiladas"]
 
 function renderButtons() {
     $("#buttons-view").empty();
-    for (var i = 0; i < movies.length; i++) {
+    for (var i = 0; i < gifs.length; i++) {
 
         var a = $("<button>");
 
         a.addClass("gif");
 
         a.attr("data-name", gifs[i]);
-        
+
         a.text(gifs[i]);
 
         $("#buttons-view").append(a);
@@ -19,22 +19,20 @@ function renderButtons() {
 $("#add-button").on("click", function (event) {
     event.preventDefault();
     // This line of code will grab the input from the textbox
-    var movie = $("#name-input").val().trim();
+    var gifName = $("#name-input").val().trim();
 
     // The movie from the textbox is then added to our array
-    movies.push(movie);
+    movies.push(gifName);
 
     // Calling renderButtons which handles the processing of our movie array
     renderButtons();
 });
 
-// Adding click event listeners to all elements with a class of "movie"
-$(document).on("click", ".movie", displayMovieInfo);
-
 // Calling the renderButtons function to display the intial buttons
 renderButtons();
 
 var name = $(this).attr("data-name");
+console.log(this)
 var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
     name + "&api_key=BkaUZZWcFij6J7AoQj3WtPb1R2p9O6V9&limit=10";
 
