@@ -26,8 +26,8 @@ function displayGifs() {
                 gifImage.attr("data-state", "still");
                 gifImage.addClass("giphy")
 
-                gifDiv.prepend(p);
-                gifDiv.prepend(gifImage);
+                gifDiv.append(p);
+                gifDiv.append(gifImage);
 
                 $("#gifs-appear-here").append(gifDiv);
             }
